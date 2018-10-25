@@ -616,6 +616,7 @@ async def Ave(context):
     await client.say('Ave Pariston!')
 
 
+
 @client.event
 async def on_ready():
     print('Logged in as MSU')
