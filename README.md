@@ -1,2 +1,2 @@
-# ParistonsZeugenBot
-Bot for Paristons Zeugen Discord Chat
+# MSU Bot
+Bot for MSU Discord Chat
