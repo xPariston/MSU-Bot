@@ -45,7 +45,7 @@ async def getPlayerDamage(url,session,profildict,partylist):
     soup = await soup_d(html)
 
     for profil in soup.find_all(attrs={"class":"list_name pointer"}):
-
+        print(profil)
         name=profil.get_text()
         if name not in profildict:
             profil = profil.split('"')
