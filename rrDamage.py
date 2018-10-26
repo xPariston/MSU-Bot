@@ -20,6 +20,105 @@ myheader = \
     }
 
 
+async def MultiplayerDmg(urllist,profildict,partylist):
+    async with aiohttp.ClientSession(headers=myheader) as session:
+
+        playerdmg = {}
+        for url in urllist:
+            tempdmg,profildict = await getPlayerDamage(url,session,profildict,partylist)
+            for name in tempdmg:
+                if name in playerdmg:
+                    playerdmg[name] += tempdmg[name]
+                else:
+                    playerdmg[name]=tempdmg[name]
+
+        return playerdmg
+
+async def getPlayerDamage(url,session,profildict,partylist):
+
+    player = []
+    damage = []
+    counter = 1
+
+    url = url.replace("#war/details","war/damage/0")
+    html = await fetch(session, url)
+    soup = await soup_d(html)
+
+    for profil in soup.find_all(attrs={"class":"list_name pointer"}):
+
+        name=profil.get_text()
+        if name not in profildict:
+            profil = profil.split('"')
+            profil = profil[1].split("/")
+            id = profil[2]
+
+            party= await getProfilParty(id,session)
+            profildict[name]=party
+        player.append(name)
+
+    for dmg in soup.find_all(attrs={"class":"yellow"}):
+        if counter%2 == 1:
+            damage.append(dmg.get_text())
+        counter+=1
+
+    playerdamagedict = {}
+
+    for count, pl in enumerate(player):
+        playerdamagedict [pl] = damage[count]
+
+    playerpartys = {}
+    for name in playerdamagedict:
+        if profildict[name] in partylist:
+            playerpartys[name]=playerdamagedict[name]
+
+    print("RawDamage URL: ", url)
+    print("In RawDamage. damagelist: ", playerpartys)
+
+    url = url.replace("war/damage/0", "war/damage/1")
+
+    player = []
+    damage = []
+    counter = 1
+
+    url = url.replace("#war/details", "war/damage/0")
+    html = await fetch(session, url)
+    soup = await soup_d(html)
+
+    for profil in soup.find_all(attrs={"class": "list_name pointer"}):
+
+        name = profil.get_text()
+        if name not in profildict:
+            profil = profil.split('"')
+            profil = profil[1].split("/")
+            id = profil[2]
+
+            party = await getProfilParty(id, session)
+            profildict[name] = party
+        player.append(name)
+
+    for dmg in soup.find_all(attrs={"class": "yellow"}):
+        if counter % 2 == 1:
+            damage.append(dmg.get_text())
+        counter += 1
+
+    playerdamagedict = {}
+
+    for count, pl in enumerate(player):
+        playerdamagedict[pl] = damage[count]
+
+    playerpartys = {}
+    for name in playerdamagedict:
+        if profildict[name] in partylist:
+            if name in playerpartys:
+                playerpartys[name] += playerdamagedict[name]
+            else:
+                playerpartys[name] = playerdamagedict[name]
+
+    print("RawDamage URL: ", url)
+    print("In RawDamage." , playerpartys)
+
+    return playerpartys,profildict
+
 
 async def getRawDamage(url,session):
 
