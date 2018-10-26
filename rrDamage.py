@@ -59,6 +59,7 @@ async def getPlayerDamage(url,session,profildict,partylist):
             profildict[name]=party
         player.append(name)
 
+    print("profildict: ",profildict)
     for dmg in soup.find_all(attrs={"class":"yellow"}):
         if counter%2 == 1:
             damage.append(dmg.get_text())
@@ -66,6 +67,8 @@ async def getPlayerDamage(url,session,profildict,partylist):
 
     playerdamagedict = {}
 
+    print("Player: ",player)
+    print("Dmg: ",damage)
     for count, pl in enumerate(player):
         playerdamagedict [pl] = damage[count]
 
@@ -73,6 +76,7 @@ async def getPlayerDamage(url,session,profildict,partylist):
     for name in playerdamagedict:
         if profildict[name] in partylist:
             playerpartys[name]=playerdamagedict[name]
+
 
     print("RawDamage URL: ", url)
     print("In RawDamage. damagelist: ", playerpartys)
