@@ -40,8 +40,8 @@ async def getPlayerDamage(url,session,profildict,partylist):
     damage = []
     counter = 1
 
-    url = url.replace("#war/details","war/damage/0")
-    html = await fetch(session, url)
+    url0 = url.replace("#war/details","war/damage")+"/0"
+    html = await fetch(session, url0)
     soup = await soup_d(html)
 
     for profil in soup.find_all(attrs={"class":"list_name pointer"}):
@@ -74,7 +74,7 @@ async def getPlayerDamage(url,session,profildict,partylist):
     print("RawDamage URL: ", url)
     print("In RawDamage. damagelist: ", playerpartys)
 
-    url = url.replace("war/damage/0", "war/damage/1")
+    url0 = url.replace("#war/details", "war/damage") + "/1"
 
     player = []
     damage = []
