@@ -59,6 +59,7 @@ async def getPlayerDamage(url,session,profildict,partylist):
             profildict[name]=party
         player.append(name)
 
+
     print("profildict: ",profildict)
     for dmg in soup.find_all(attrs={"class":"yellow"}):
         if counter%2 == 1:
