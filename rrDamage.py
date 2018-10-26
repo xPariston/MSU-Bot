@@ -52,6 +52,7 @@ async def getPlayerDamage(url,session,profildict,partylist):
             profil = profil.split(" ")
             profil = profil[1].split("/")
             Id = profil[2]
+            Id = Id[0:-1]
             print(Id)
 
             party= await getProfilParty(Id,session)
@@ -90,11 +91,13 @@ async def getPlayerDamage(url,session,profildict,partylist):
 
         name = profil.get_text()
         if name not in profildict:
-            profil = profil.split('"')
+            profil = str(profil)
+            profil = profil.split(" ")
             profil = profil[1].split("/")
-            id = profil[2]
+            Id = profil[2]
+            print(Id)
 
-            party = await getProfilParty(id, session)
+            party = await getProfilParty(Id, session)
             profildict[name] = party
         player.append(name)
 
