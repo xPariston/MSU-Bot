@@ -48,6 +48,7 @@ async def getPlayerDamage(url,session,profildict,partylist):
         print("print profil:" , profil)
         name=profil.get_text()
         if name not in profildict:
+            profil = str(profil)
             profil = profil.split(" ")
             profil = profil[1].split("/")
             Id = profil[2]
