@@ -17,8 +17,7 @@ async def getPartys():
     parteienchannel = discord.Object(id='504982742707077120')
     parteiliste = []
     async for m in client.logs_from(parteienchannel, 100):
-        p,rest = m.content.split(":")
-        p = p.strip()
+        p = m.content.strip()
         parteiliste.append(p)
     return parteiliste
 
@@ -124,9 +123,10 @@ async def update_markt_background_task():
     while not client.is_closed:
         Preise = await rrDamage.getMarktPreise()
         preischannel = discord.Object(id="504982618631045132")
-        NewOutput = Preise
-        await client.send_message(preischannel, NewOutput)
-
+        if "Öl" in Preise:
+            await client.send_message(preischannel, "Routinecheck geschafft.")
+        else:
+            await client.send_message(preischannel, "@Admin#9464 pls fix me senpai")
         await asyncio.sleep(86400)
 
 @client.event
