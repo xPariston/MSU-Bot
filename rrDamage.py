@@ -26,6 +26,7 @@ async def MultiplayerDmg(urllist,profildict,partylist):
         playerdmg = {}
         for url in urllist:
             tempdmg,profildict = await getPlayerDamage(url,session,profildict,partylist)
+            print("In multiplayer: ", tempdmg)
             for name in tempdmg:
                 if name in playerdmg:
                     playerdmg[name] += tempdmg[name]
