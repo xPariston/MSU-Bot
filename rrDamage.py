@@ -25,17 +25,26 @@ async def MultiplayerDmg(urllist,profildict,partylist):
 
         playerdmg = {}
         for url in urllist:
-            tempdmg,profildict = await getPlayerDamage(url,session,profildict,partylist)
+            adder = 0
+            tempdmg,profildict = await getPlayerDamage0(url,session,profildict,partylist,adder)
             print("In multiplayer: ", tempdmg)
             for name in tempdmg:
                 if name in playerdmg:
                     playerdmg[name] += tempdmg[name]
                 else:
                     playerdmg[name]=tempdmg[name]
+            adder = 0
+            tempdmg, profildict = await getPlayerDamage1(url, session, profildict, partylist, adder)
+            print("In multiplayer: ", tempdmg)
+            for name in tempdmg:
+                if name in playerdmg:
+                    playerdmg[name] += tempdmg[name]
+                else:
+                    playerdmg[name] = tempdmg[name]
 
         return playerdmg
 
-async def getPlayerDamage(url,session,profildict,partylist):
+async def getPlayerDamage0(url,session,profildict,partylist,adder):
 
     player = []
     damage = []
@@ -45,8 +54,9 @@ async def getPlayerDamage(url,session,profildict,partylist):
     html = await fetch(session, url0)
     soup = await soup_d(html)
 
+    counta=0
     for profil in soup.find_all(attrs={"class":"list_name pointer"}):
-        print("print profil:" , profil)
+        counta +=1
         name=profil.get_text()
         if name not in profildict:
             profil = str(profil)
@@ -54,7 +64,6 @@ async def getPlayerDamage(url,session,profildict,partylist):
             profil = profil[1].split("/")
             Id = profil[2]
             Id = Id[0:-1]
-            print(Id)
 
             party= await getProfilParty(Id,session)
             profildict[name]=party
@@ -71,20 +80,32 @@ async def getPlayerDamage(url,session,profildict,partylist):
 
     playerdamagedict = {}
 
-    print("Player: ",player)
-    print("Dmg: ",damage)
     for count, pl in enumerate(player):
         playerdamagedict [pl] = damage[count]
 
     playerpartys = {}
     for name in playerdamagedict:
         if profildict[name] in partylist:
-            playerpartys[name]=playerdamagedict[name]
+            if name in playerpartys:
+                playerpartys[name] += playerdamagedict[name]
+            else:
+                playerpartys[name] = playerdamagedict[name]
+
+    if counta == 25:
+        adder += 25
+        url = url0 + "/" + str(adder)
+        tempdict, profildict = await getPlayerDamage0(url,session,profildict,partylist,adder)
+        for name in tempdict:
+            if profildict[name] in partylist:
+                if name in playerpartys:
+                    playerpartys[name] += playerdamagedict[name]
+                else:
+                    playerpartys[name] = playerdamagedict[name]
+
+    return playerpartys,profildict
 
 
-    print("RawDamage URL: ", url)
-    print("In RawDamage. damagelist: ", playerpartys)
-
+async def getPlayerDamage1(url, session, profildict, partylist,adder):
     url1 = url.replace("#war/details", "war/damage") + "/1"
 
     player = []
@@ -94,7 +115,9 @@ async def getPlayerDamage(url,session,profildict,partylist):
     html = await fetch(session, url1)
     soup = await soup_d(html)
 
-    for profil in soup.find_all(attrs={"class": "list_name pointer"}):
+    counta=0
+    for profil in soup.find_all(attrs={"class":"list_name pointer"}):
+        counta +=1
 
         name = profil.get_text()
         if name not in profildict:
@@ -102,7 +125,6 @@ async def getPlayerDamage(url,session,profildict,partylist):
             profil = profil.split(" ")
             profil = profil[1].split("/")
             Id = profil[2]
-            print(Id)
 
             party = await getProfilParty(Id, session)
             profildict[name] = party
@@ -121,12 +143,26 @@ async def getPlayerDamage(url,session,profildict,partylist):
     for count, pl in enumerate(player):
         playerdamagedict[pl] = damage[count]
 
+    playerpartys = {}
     for name in playerdamagedict:
         if profildict[name] in partylist:
             if name in playerpartys:
                 playerpartys[name] += playerdamagedict[name]
             else:
                 playerpartys[name] = playerdamagedict[name]
+
+
+
+    if counta == 25:
+        adder += 25
+        url = url1 + "/" + str(adder)
+        tempdict, profildict = await getPlayerDamage0(url,session,profildict,partylist,adder)
+        for name in tempdict:
+            if profildict[name] in partylist:
+                if name in playerpartys:
+                    playerpartys[name] += playerdamagedict[name]
+                else:
+                    playerpartys[name] = playerdamagedict[name]
 
     print("RawDamage URL: ", url)
     print("In RawDamage" , playerpartys)
