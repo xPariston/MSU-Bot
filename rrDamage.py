@@ -62,7 +62,7 @@ async def getPlayerDamage(url,session,profildict,partylist):
 
     print("profildict: ",profildict)
     for dmg in soup.find_all(attrs={"class":"yellow"}):
-        if counter%2 == 1:
+        if counter%2 == 0:
             damage.append(dmg.get_text())
         counter+=1
 
@@ -107,7 +107,7 @@ async def getPlayerDamage(url,session,profildict,partylist):
         player.append(name)
 
     for dmg in soup.find_all(attrs={"class": "yellow"}):
-        if counter % 2 == 1:
+        if counter % 2 == 0:
             damage.append(dmg.get_text())
         counter += 1
 
@@ -452,6 +452,7 @@ async def getProfilParty(profilid,session):
         counter +=1
     try:
         party = party.replace("Ã¼","ü")
+        party  = party.replace("\n","")
     except:
         party = "Unaffiliated"
     #print(party + "Eintrag aus getProfilParty")
