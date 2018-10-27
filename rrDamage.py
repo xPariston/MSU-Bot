@@ -69,8 +69,8 @@ async def getPlayerDamage0(url,session,profildict,partylist,adder):
             profildict[name]=party
         player.append(name)
 
+    print("counta:",counta)
 
-    print("profildict: ",profildict)
     for dmg in soup.find_all(attrs={"class":"yellow"}):
         if counter%2 == 0:
             d = dmg.get_text()
@@ -92,6 +92,7 @@ async def getPlayerDamage0(url,session,profildict,partylist,adder):
                 playerpartys[name] = playerdamagedict[name]
 
     if counta == 25:
+        print("In adder", adder)
         adder += 25
         url = url0 + "/" + str(adder)
         tempdict, profildict = await getPlayerDamage0(url,session,profildict,partylist,adder)
@@ -154,6 +155,7 @@ async def getPlayerDamage1(url, session, profildict, partylist,adder):
 
 
     if counta == 25:
+        print("In adder",adder)
         adder += 25
         url = url1 + "/" + str(adder)
         tempdict, profildict = await getPlayerDamage0(url,session,profildict,partylist,adder)
