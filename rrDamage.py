@@ -496,7 +496,6 @@ async def getProfilParty(profilid,session):
     party = ""
     counter = 1
     for party in soup.find_all(attrs={"class": "header_buttons_hover slide_profile_link tc"}):
-        print( "in getProfilParty: ",party)
         if counter == 2:
             party = party.get_text()
         if counter == 3:
