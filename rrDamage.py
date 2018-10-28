@@ -47,7 +47,7 @@ async def MultiplayerDmg(urllist,profildict,partylist):
         return playerdmg
 
 async def getPlayerDamage0(url,session,profildict,partylist,adder):
-
+    print(partylist)
     print("Url=",url)
     player = []
     damage = []
@@ -85,6 +85,7 @@ async def getPlayerDamage0(url,session,profildict,partylist,adder):
     for count, pl in enumerate(player):
         playerdamagedict [pl] = damage[count]
 
+    print(playerdamagedict)
     playerpartys = {}
     for name in playerdamagedict:
         if profildict[name] in partylist:
