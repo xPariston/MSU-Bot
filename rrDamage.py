@@ -26,6 +26,7 @@ async def MultiplayerDmg(urllist,profildict,partylist):
         playerdmg = {}
         for url in urllist:
             adder = 0
+            url0 = url.replace("#war/details", "war/damage") + "/0"
             tempdmg,profildict = await getPlayerDamage0(url,session,profildict,partylist,adder)
             print("In multiplayer: ", tempdmg)
             for name in tempdmg:
@@ -34,7 +35,8 @@ async def MultiplayerDmg(urllist,profildict,partylist):
                 else:
                     playerdmg[name]=tempdmg[name]
             adder = 0
-            tempdmg, profildict = await getPlayerDamage1(url, session, profildict, partylist, adder)
+            url1 = url.replace("#war/details", "war/damage") + "/1"
+            tempdmg, profildict = await getPlayerDamage1(url1, session, profildict, partylist, adder)
             print("In multiplayer: ", tempdmg)
             for name in tempdmg:
                 if name in playerdmg:
@@ -46,12 +48,12 @@ async def MultiplayerDmg(urllist,profildict,partylist):
 
 async def getPlayerDamage0(url,session,profildict,partylist,adder):
 
+    print("Url=",url)
     player = []
     damage = []
     counter = 1
 
-    url0 = url.replace("#war/details","war/damage")+"/0"
-    html = await fetch(session, url0)
+    html = await fetch(session, url)
     soup = await soup_d(html)
 
     counta=0
@@ -94,7 +96,7 @@ async def getPlayerDamage0(url,session,profildict,partylist,adder):
     if counta == 25:
         print("In adder", adder)
         adder += 25
-        url = url0 + "/" + str(adder)
+        url = url + "/" + str(adder)
         tempdict, profildict = await getPlayerDamage0(url,session,profildict,partylist,adder)
         for name in tempdict:
             if profildict[name] in partylist:
@@ -107,13 +109,13 @@ async def getPlayerDamage0(url,session,profildict,partylist,adder):
 
 
 async def getPlayerDamage1(url, session, profildict, partylist,adder):
-    url1 = url.replace("#war/details", "war/damage") + "/1"
+    print("Url=", url)
 
     player = []
     damage = []
     counter = 1
 
-    html = await fetch(session, url1)
+    html = await fetch(session, url)
     soup = await soup_d(html)
 
     counta=0
@@ -157,7 +159,7 @@ async def getPlayerDamage1(url, session, profildict, partylist,adder):
     if counta == 25:
         print("In adder",adder)
         adder += 25
-        url = url1 + "/" + str(adder)
+        url = url + "/" + str(adder)
         tempdict, profildict = await getPlayerDamage0(url,session,profildict,partylist,adder)
         for name in tempdict:
             if profildict[name] in partylist:
