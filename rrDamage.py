@@ -96,6 +96,8 @@ async def getPlayerDamage0(url,session,profildict,partylist,adder):
     if counta == 25:
         print("In adder", adder)
         adder += 25
+        newurl = url.split("/")
+        url = url.replace(newurl[-1], "")
         url = url + "/" + str(adder)
         tempdict, profildict = await getPlayerDamage0(url,session,profildict,partylist,adder)
         for name in tempdict:
@@ -159,6 +161,8 @@ async def getPlayerDamage1(url, session, profildict, partylist,adder):
     if counta == 25:
         print("In adder",adder)
         adder += 25
+        newurl = url.split("/")
+        url = url.replace(newurl[-1],"")
         url = url + "/" + str(adder)
         tempdict, profildict = await getPlayerDamage0(url,session,profildict,partylist,adder)
         for name in tempdict:
