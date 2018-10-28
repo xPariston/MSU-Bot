@@ -27,7 +27,7 @@ async def MultiplayerDmg(urllist,profildict,partylist):
         for url in urllist:
             adder = 0
             url0 = url.replace("#war/details", "war/damage") + "/0"
-            tempdmg,profildict = await getPlayerDamage0(url,session,profildict,partylist,adder)
+            tempdmg,profildict = await getPlayerDamage0(url0,session,profildict,partylist,adder)
             print("In multiplayer: ", tempdmg)
             for name in tempdmg:
                 if name in playerdmg:
