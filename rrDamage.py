@@ -97,7 +97,7 @@ async def getPlayerDamage0(url,session,profildict,partylist,adder):
         print("In adder", adder)
         adder += 25
         newurl = url.split("/")
-        url = url.replace(newurl[-1], "")
+        url = url.replace("/" + newurl[-1], "")
         url = url + "/" + str(adder)
         tempdict, profildict = await getPlayerDamage0(url,session,profildict,partylist,adder)
         for name in tempdict:
@@ -130,6 +130,7 @@ async def getPlayerDamage1(url, session, profildict, partylist,adder):
             profil = profil.split(" ")
             profil = profil[1].split("/")
             Id = profil[2]
+            Id = Id[0:-1]
 
             party = await getProfilParty(Id, session)
             profildict[name] = party
@@ -162,7 +163,7 @@ async def getPlayerDamage1(url, session, profildict, partylist,adder):
         print("In adder",adder)
         adder += 25
         newurl = url.split("/")
-        url = url.replace(newurl[-1],"")
+        url = url.replace("/" + newurl[-1],"")
         url = url + "/" + str(adder)
         tempdict, profildict = await getPlayerDamage0(url,session,profildict,partylist,adder)
         for name in tempdict:
