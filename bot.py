@@ -83,15 +83,19 @@ async def WarListPlayerAnalyse(context):
 
     await client.say(Msg3)
 
-@client.command(name="AllDonations21d",
-                description='Analysiere alle Spenden in unseren Regionen in den letzten 21 Tagen.',
-                brief='Spendenanalyse aller Regionen in den letzten 21 Tagen',
+@client.command(name="AllDonations",
+                description='Analysiere alle Spenden in unseren Regionen in den letzten Tagen.',
+                brief='Spendenanalyse aller Regionen in den letzten Tagen',
                 pass_context=True)
 
 
-async def AllDonations21d(context):
+async def AllDonations(context):
     author = context.message.author
 
+    days = context.message.content
+    days = days.replace("!AllDonations","")
+    days = days.strip()
+    days = int(days)
     parteiliste = await getPartys()
 
     stateschannel = discord.Object(id='504982760251850752')
@@ -111,7 +115,7 @@ async def AllDonations21d(context):
     for state in stateids:
         await client.say("Analysiere Staat %d"%counter)
         print("Staat Nr.%d: " %counter + state)
-        tempdict = await rrDamage.getStateDonations(state,parteiliste,profildict,marktdict)
+        tempdict = await rrDamage.getStateDonations(state,parteiliste,profildict,marktdict,days)
         print("Staat beendet")
         counter +=1
         for p in tempdict:
