@@ -69,6 +69,17 @@ async def WarListPlayerAnalyse(context):
         Msg2 += j + ": " + rrDamage.MakeNumber2PrettyString(spielerdict[j])+ '\n' + "SpielerURL: " + urlplayer[j] + '\n\n'
     await client.say(Msg2)
 
+    Msg3 = "\n \n Spieler:"
+    for j in spielerdict:
+        Msg3 += j +"\n"
+    Msg3 = Msg3 + "\n"+"Schaden:"
+    for j in spielerdict:
+        Msg3 += rrDamage.MakeNumber2PrettyString(spielerdict[j])+"\n"
+    Msg3 = Msg3 + "\n"+"URL:"
+    for j in spielerdict:
+        Msg3 += urlplayer[j]+"\n"
+
+    await client.say(Msg3)
 
 @client.command(name="AllDonations21d",
                 description='Analysiere alle Spenden in unseren Regionen in den letzten 21 Tagen.',
