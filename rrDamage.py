@@ -103,7 +103,7 @@ async def getPlayerDamage0(url,session,profildict,partylist,adder,urlplayer):
             url = url.replace("/" + newurl[-1], "")
         adder += 25
         url = url + "/" + str(adder)
-        tempdict, profildict = await getPlayerDamage0(url,session,profildict,partylist,adder,urlplayer)
+        tempdict, profildict,urlplayer = await getPlayerDamage0(url,session,profildict,partylist,adder,urlplayer)
         print("Tempdict: ",tempdict)
         print("Playerpartys: ", playerpartys)
         for name in tempdict:
