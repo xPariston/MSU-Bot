@@ -20,14 +20,14 @@ myheader = \
     }
 
 
-async def MultiplayerDmg(urllist,profildict,partylist):
+async def MultiplayerDmg(urllist,profildict,partylist,urlplayer):
     async with aiohttp.ClientSession(headers=myheader) as session:
 
         playerdmg = {}
         for url in urllist:
             adder = 0
             url0 = url.replace("#war/details", "war/damage") + "/0"
-            tempdmg,profildict = await getPlayerDamage0(url0,session,profildict,partylist,adder)
+            tempdmg,profildict,urlplayer = await getPlayerDamage0(url0,session,profildict,partylist,adder,urlplayer)
             print("In multiplayer: ", tempdmg)
             for name in tempdmg:
                 if name in playerdmg:
@@ -36,7 +36,7 @@ async def MultiplayerDmg(urllist,profildict,partylist):
                     playerdmg[name]=tempdmg[name]
             adder = 0
             url1 = url.replace("#war/details", "war/damage") + "/1"
-            tempdmg, profildict = await getPlayerDamage1(url1, session, profildict, partylist, adder)
+            tempdmg, profildict,urlplayer = await getPlayerDamage1(url1, session, profildict, partylist, adder,urlplayer)
             print("In multiplayer: ", tempdmg)
             for name in tempdmg:
                 if name in playerdmg:
@@ -44,9 +44,9 @@ async def MultiplayerDmg(urllist,profildict,partylist):
                 else:
                     playerdmg[name] = tempdmg[name]
 
-        return playerdmg
+        return playerdmg,urlplayer
 
-async def getPlayerDamage0(url,session,profildict,partylist,adder):
+async def getPlayerDamage0(url,session,profildict,partylist,adder,urlplayer):
     print(partylist)
     print("Url=",url)
     player = []
@@ -66,6 +66,8 @@ async def getPlayerDamage0(url,session,profildict,partylist,adder):
             profil = profil[1].split("/")
             Id = profil[2]
             Id = Id[0:-1]
+
+            urlplayer[name]= "rivalregions/#slide/profile/"+str(Id)
 
             party= await getProfilParty(Id,session)
             profildict[name]=party
@@ -101,7 +103,7 @@ async def getPlayerDamage0(url,session,profildict,partylist,adder):
             url = url.replace("/" + newurl[-1], "")
         adder += 25
         url = url + "/" + str(adder)
-        tempdict, profildict = await getPlayerDamage0(url,session,profildict,partylist,adder)
+        tempdict, profildict = await getPlayerDamage0(url,session,profildict,partylist,adder,urlplayer)
         print("Tempdict: ",tempdict)
         print("Playerpartys: ", playerpartys)
         for name in tempdict:
@@ -110,10 +112,10 @@ async def getPlayerDamage0(url,session,profildict,partylist,adder):
             else:
                 playerpartys[name] = tempdict[name]
 
-    return playerpartys,profildict
+    return playerpartys,profildict,urlplayer
 
 
-async def getPlayerDamage1(url, session, profildict, partylist,adder):
+async def getPlayerDamage1(url, session, profildict, partylist,adder,urlplayer):
     print("Url=", url)
 
     player = []
@@ -135,6 +137,7 @@ async def getPlayerDamage1(url, session, profildict, partylist,adder):
             Id = profil[2]
             Id = Id[0:-1]
 
+            urlplayer[name] = "rivalregions/#slide/profile/" + str(Id)
             party = await getProfilParty(Id, session)
             profildict[name] = party
         player.append(name)
@@ -169,7 +172,7 @@ async def getPlayerDamage1(url, session, profildict, partylist,adder):
             url = url.replace("/" + newurl[-1],"")
         adder += 25
         url = url + "/" + str(adder)
-        tempdict, profildict = await getPlayerDamage1(url,session,profildict,partylist,adder)
+        tempdict, profildict,urlplayer = await getPlayerDamage1(url,session,profildict,partylist,adder,urlplayer)
         for name in tempdict:
             if name in playerpartys:
                 playerpartys[name] += tempdict[name]
@@ -179,7 +182,7 @@ async def getPlayerDamage1(url, session, profildict, partylist,adder):
     print("RawDamage URL: ", url)
     print("In RawDamage" , playerpartys)
 
-    return playerpartys,profildict
+    return playerpartys,profildict,urlplayer
 
 
 async def getRawDamage(url,session):

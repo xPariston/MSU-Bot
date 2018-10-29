@@ -61,11 +61,12 @@ async def WarListPlayerAnalyse(context):
     async for n in client.logs_from(warchannel, 100):
         warliste.append(n.content)
 
-    spielerdict = await rrDamage.MultiplayerDmg(warliste,profildict,parteiliste)
+    urlplayer = {}
+    spielerdict,urlplayer = await rrDamage.MultiplayerDmg(warliste,profildict,parteiliste,urlplayer)
 
     Msg2= "Roher Schaden der Spieler:\n"
     for j in spielerdict:
-        Msg2 += j + ": " + rrDamage.MakeNumber2PrettyString(spielerdict[j])+ '\n'
+        Msg2 += j + ": " + rrDamage.MakeNumber2PrettyString(spielerdict[j])+ '\n' + "SpielerURL: " + urlplayer[j]
     await client.say(Msg2)
 
 
