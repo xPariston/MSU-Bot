@@ -102,6 +102,8 @@ async def getPlayerDamage0(url,session,profildict,partylist,adder):
         adder += 25
         url = url + "/" + str(adder)
         tempdict, profildict = await getPlayerDamage0(url,session,profildict,partylist,adder)
+        print("Tempdict: ",tempdict)
+        print("Playerpartys: ", playerpartys)
         for name in tempdict:
             if profildict[name] in partylist:
                 if name in playerpartys:
