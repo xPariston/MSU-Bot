@@ -72,6 +72,7 @@ async def WarListPlayerAnalyse(context):
     Msg3 = "\n \n Spieler:\n"
     for j in spielerdict:
         name= j.replace("[MSU]","")
+        name = name.strip()
         Msg3 += name +"\n"
     Msg3 = Msg3 + "\n"+"Schaden:\n"
     for j in spielerdict:
