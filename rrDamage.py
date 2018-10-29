@@ -105,11 +105,10 @@ async def getPlayerDamage0(url,session,profildict,partylist,adder):
         print("Tempdict: ",tempdict)
         print("Playerpartys: ", playerpartys)
         for name in tempdict:
-            if profildict[name] in partylist:
-                if name in playerpartys:
-                    playerpartys[name] += playerdamagedict[name]
-                else:
-                    playerpartys[name] = playerdamagedict[name]
+            if name in playerpartys:
+                playerpartys[name] += tempdict[name]
+            else:
+                playerpartys[name] = tempdict[name]
 
     return playerpartys,profildict
 
@@ -172,11 +171,10 @@ async def getPlayerDamage1(url, session, profildict, partylist,adder):
         url = url + "/" + str(adder)
         tempdict, profildict = await getPlayerDamage1(url,session,profildict,partylist,adder)
         for name in tempdict:
-            if profildict[name] in partylist:
-                if name in playerpartys:
-                    playerpartys[name] += playerdamagedict[name]
-                else:
-                    playerpartys[name] = playerdamagedict[name]
+            if name in playerpartys:
+                playerpartys[name] += tempdict[name]
+            else:
+                playerpartys[name] = tempdict[name]
 
     print("RawDamage URL: ", url)
     print("In RawDamage" , playerpartys)
