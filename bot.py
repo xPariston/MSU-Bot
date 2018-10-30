@@ -29,7 +29,6 @@ async def getPartys():
                 pass_context=True)
 
 async def WarListPartyAnalyse(context):
-
     parteiliste = await getPartys()
 
     warchannel = discord.Object(id='505500419221618729')

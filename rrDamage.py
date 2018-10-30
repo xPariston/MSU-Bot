@@ -67,7 +67,7 @@ async def getPlayerDamage0(url,session,profildict,partylist,adder,urlplayer):
             Id = profil[2]
             Id = Id[0:-1]
 
-            urlplayer[name]= "rivalregions/#slide/profile/"+str(Id)
+            urlplayer[name]= "rivalregions.com/#slide/profile/"+str(Id)
 
             party= await getProfilParty(Id,session)
             profildict[name]=party
@@ -137,7 +137,7 @@ async def getPlayerDamage1(url, session, profildict, partylist,adder,urlplayer):
             Id = profil[2]
             Id = Id[0:-1]
 
-            urlplayer[name] = "rivalregions/#slide/profile/" + str(Id)
+            urlplayer[name] = "rivalregion1s.com/#slide/profile/" + str(Id)
             party = await getProfilParty(Id, session)
             profildict[name] = party
         player.append(name)
