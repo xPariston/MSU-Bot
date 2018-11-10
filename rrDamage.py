@@ -13,7 +13,7 @@ myheader = \
         "Accept-Language": "de-DE,de;q=0.9,en-US;q=0.8,en;q=0.7",
         "Cache-Control": "max-age=0",
         "Connection": "keep-alive",
-        "Cookie": "__cfduid=d0f0c8bc00a5abe56645d55c4404658af1541666827; PHPSESSID=8gp2a50ponbi2vbm58lqq8nul7; __atuvc=1%7C45; __atuvs=5be3f8090b480307000; _iub_cs-76236742=%7B%22consent%22%3Atrue%2C%22timestamp%22%3A%222018-11-08T08%3A47%3A07.256Z%22%2C%22version%22%3A%221.2.4%22%2C%22id%22%3A76236742%2C%22documentClicked%22%3Atrue%7D; rr=7803c8beed1342c995565df271608b28; rr_id=2000268192; rr_add=b6f6c9c4302871cfc965f908109c6c21",
+        "Cookie": "__cfduid=d0f0c8bc00a5abe56645d55c4404658af1541666827; _iub_cs-76236742=%7B%22consent%22%3Atrue%2C%22timestamp%22%3A%222018-11-08T08%3A47%3A07.256Z%22%2C%22version%22%3A%221.2.4%22%2C%22id%22%3A76236742%7D; PHPSESSID=7nomfaillbq0s0iurr9pugrus6; __atuvc=4%7C45; rr=61031802563cc7e43f8019bc10503498; rr_id=2000268192; rr_add=b6f6c9c4302871cfc965f908109c6c21",
         "Host": "rivalregions.com",
         "Upgrade-Insecure-Requests": "1",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36",
