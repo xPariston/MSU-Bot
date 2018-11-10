@@ -215,7 +215,7 @@ async def getMSUPlayer(partyid,adder):
 
         if counter == 25:
             adder += 25
-            tempdict = getMSUPlayer(partyid,adder)
+            tempdict = await getMSUPlayer(partyid,adder)
             for x in tempdict:
                 playernames[x]= tempdict[x]
 
