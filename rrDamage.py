@@ -207,7 +207,7 @@ async def getMSUPlayer(partyid,adder):
             memberx = str(member)
             strings = memberx.split(" ")
             purl = strings[1].split("=")
-            purl = purl.replace('"','')
+            purl = purl[1].replace('"','')
             purl = profilurl + purl
 
             playernames[membername] = purl
