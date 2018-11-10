@@ -208,6 +208,11 @@ async def getMSUPlayer(partyid,adder):
             name = memberx.split('<div style="margin-top: -5px;">')
             name = name[1].split(' <span class="green">')
             name = name[0].strip()
+            try:
+                name = name.split("<br/>")
+                name = name[0].strip()
+            except:
+                pass
 
             strings = memberx.split(" ")
             purl = strings[1].split("=")
