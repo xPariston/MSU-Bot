@@ -144,8 +144,9 @@ async def AllDonations(context):
 async def getMSUmember():
 
     msupartyid = 160638
+    adder = 0
 
-    memberdict = await rrDamage.getMSUPlayer(msupartyid)
+    memberdict = await rrDamage.getMSUPlayer(msupartyid,adder)
 
 
     await client.say("Mitglieder: \n")
