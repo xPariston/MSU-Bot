@@ -205,12 +205,16 @@ async def getMSUPlayer(partyid,adder):
             membername = membername.strip()
 
             memberx = str(member)
+            name = memberx.split('<div style="margin-top: -5px;">')
+            name = name[1].split(' <span class="green">')
+            name = name[0].strip()
+
             strings = memberx.split(" ")
             purl = strings[1].split("=")
             purl = purl[1].replace('"','')
             purl = profilurl + purl
 
-            playernames[membername] = purl
+            playernames[name] = purl
             counter += 1
 
         if counter == 25:
