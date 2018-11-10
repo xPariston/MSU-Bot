@@ -135,6 +135,27 @@ async def AllDonations(context):
     await asyncio.shield(client.send_message(context.message.channel, Msg1 + Msg2))
 
 
+
+@client.command(name="getMSUmember",
+                description='Alle Msu Mitglieder mit url',
+                brief='Alle Msu Mitglieder mit url',
+                pass_context=True)
+
+async def getMSUmember():
+
+    msupartyid = 160638
+
+    memberdict = await rrDamage.getMSUPlayer(msupartyid)
+
+
+    await client.say("Mitglieder: \n")
+    for member in memberdict:
+        await client.say(member)
+
+    await client.say("Mitglieder URLs: \n")
+    for member in memberdict:
+        await client.say(memberdict[member])
+
 async def update_markt_background_task():
     await client.wait_until_ready()
     while not client.is_closed:

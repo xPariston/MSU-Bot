@@ -137,7 +137,7 @@ async def getPlayerDamage1(url, session, profildict, partylist,adder,urlplayer):
             Id = profil[2]
             Id = Id[0:-1]
 
-            urlplayer[name] = "rivalregion1s.com/#slide/profile/" + str(Id)
+            urlplayer[name] = "http://rivalregions.com/#slide/profile/" + str(Id)
             party = await getProfilParty(Id, session)
             profildict[name] = party
         player.append(name)
@@ -183,6 +183,32 @@ async def getPlayerDamage1(url, session, profildict, partylist,adder,urlplayer):
     print("In RawDamage" , playerpartys)
 
     return playerpartys,profildict,urlplayer
+
+
+async def getMSUPlayer(partyid):
+    async with aiohttp.ClientSession(headers=myheader) as session:
+
+        playernames = {}
+        partyurl = "http://rivalregions.com/listed/party/" + str(partyid)
+        profilurl = "http://rivalregions.com/#"
+
+        html = await fetch(session, partyurl)
+        soup = await soup_d(html)
+
+        for member in soup.find_all(attrs={"class": "list_name pointer"}):
+            membername = member.get_text()
+            membername = membername.strip()
+
+
+            strings = member.split(" ")
+            purl = strings[1].split("=")
+            purl = purl.replace('"','')
+            purl = profilurl + purl
+
+            playernames[membername] = purl
+
+        return playernames
+
 
 
 async def getRawDamage(url,session):
