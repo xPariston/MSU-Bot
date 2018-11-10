@@ -185,15 +185,20 @@ async def getPlayerDamage1(url, session, profildict, partylist,adder,urlplayer):
     return playerpartys,profildict,urlplayer
 
 
-async def getMSUPlayer(partyid):
+async def getMSUPlayer(partyid,adder):
     async with aiohttp.ClientSession(headers=myheader) as session:
 
         playernames = {}
-        partyurl = "http://rivalregions.com/listed/party/" + str(partyid)
+        if adder == 0:
+            partyurl = "http://rivalregions.com/listed/party/" + str(partyid)
+        else:
+            partyurl = "http://rivalregions.com/listed/party/" + str(partyid)+"/"+str(adder)
+
         profilurl = "http://rivalregions.com/#"
 
         html = await fetch(session, partyurl)
         soup = await soup_d(html)
+        counter = 0
 
         for member in soup.find_all(attrs={"class": "list_name pointer"}):
             membername = member.get_text()
@@ -206,6 +211,13 @@ async def getMSUPlayer(partyid):
             purl = profilurl + purl
 
             playernames[membername] = purl
+            counter += 1
+
+        if counter == 25:
+            adder += 25
+            tempdict = getMSUPlayer(partyid,adder)
+            for x in tempdict:
+                playernames[x]= tempdict[x]
 
         return playernames
 
