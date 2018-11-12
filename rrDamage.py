@@ -56,6 +56,8 @@ async def getPlayerDamage0(url,session,profildict,partylist,adder,urlplayer):
     html = await fetch(session, url)
     soup = await soup_d(html)
 
+    print(soup.prettify())
+
     counta=0
     for profil in soup.find_all(attrs={"class":"list_name pointer"}):
         counta +=1
@@ -68,12 +70,16 @@ async def getPlayerDamage0(url,session,profildict,partylist,adder,urlplayer):
             Id = Id[0:-1]
 
             urlplayer[name]= "rivalregions.com/#slide/profile/"+str(Id)
-
+            print(name)
+            print(party)
             party= await getProfilParty(Id,session)
             profildict[name]=party
         player.append(name)
 
     print("counta:",counta)
+
+
+
 
     for dmg in soup.find_all(attrs={"class":"yellow"}):
         if counter%2 == 0:
