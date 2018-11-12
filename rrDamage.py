@@ -70,10 +70,11 @@ async def getPlayerDamage0(url,session,profildict,partylist,adder,urlplayer):
             Id = Id[0:-1]
 
             urlplayer[name]= "rivalregions.com/#slide/profile/"+str(Id)
-            print(name)
-            print(party)
+
             party= await getProfilParty(Id,session)
             profildict[name]=party
+            print(name)
+            print(party)
         player.append(name)
 
     for profil in soup.find_all(attrs={"class": "list_name pointer tip green"}):
@@ -88,9 +89,11 @@ async def getPlayerDamage0(url,session,profildict,partylist,adder,urlplayer):
             Id = Id[0:-1]
 
             urlplayer[name] = "rivalregions.com/#slide/profile/" + str(Id)
+
+            party = await getProfilParty(Id, session)
+
             print(name)
             print(party)
-            party = await getProfilParty(Id, session)
             profildict[name] = party
         player.append(name)
 
