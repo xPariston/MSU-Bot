@@ -56,10 +56,10 @@ async def getPlayerDamage0(url,session,profildict,partylist,adder,urlplayer):
     html = await fetch(session, url)
     soup = await soup_d(html)
 
-    print(soup.prettify())
 
     counta=0
     for profil in soup.find_all(attrs={"class":"list_name pointer"}):
+        print("normal",str(profil))
         counta +=1
         name=profil.get_text()
         if name not in profildict:
@@ -77,6 +77,7 @@ async def getPlayerDamage0(url,session,profildict,partylist,adder,urlplayer):
         player.append(name)
 
     for profil in soup.find_all(attrs={"class": "list_name pointer tip green"}):
+        print("normal tip green", str(profil))
         counta += 1
         name = profil.get_text()
         if name not in profildict:
