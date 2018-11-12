@@ -13,7 +13,7 @@ myheader = \
         "Accept-Language": "de-DE,de;q=0.9,en-US;q=0.8,en;q=0.7",
         "Cache-Control": "max-age=0",
         "Connection": "keep-alive",
-        "Cookie": "__cfduid=d2705bc460223ef7f069256427d659faf1541866862; PHPSESSID=jt6td01510319jc2n8hs36dls3; __atuvc=1%7C45; __atuvs=5be7056ddcba1eb9000; rr=61031802563cc7e43f8019bc10503498; rr_id=2000268192; rr_add=b6f6c9c4302871cfc965f908109c6c21",
+        "Cookie": "__cfduid=d2705bc460223ef7f069256427d659faf1541866862; PHPSESSID=lltg33li1lht38bmpv0qd2oec5; __atuvc=1%7C45%2C3%7C46; __atuvs=5be9a82b9e2e59ab000; rr=a5c5a9aa9b7f4aeff3a8e9130785f815; rr_id=2000268192; rr_add=b6f6c9c4302871cfc965f908109c6c21",
         "Host": "rivalregions.com",
         "Upgrade-Insecure-Requests": "1",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36",
