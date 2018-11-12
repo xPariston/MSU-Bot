@@ -139,6 +139,8 @@ async def getPlayerDamage1(url, session, profildict, partylist,adder,urlplayer):
 
             urlplayer[name] = "http://rivalregions.com/#slide/profile/" + str(Id)
             party = await getProfilParty(Id, session)
+            print(name)
+            print(party)
             profildict[name] = party
         player.append(name)
 
