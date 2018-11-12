@@ -76,9 +76,24 @@ async def getPlayerDamage0(url,session,profildict,partylist,adder,urlplayer):
             profildict[name]=party
         player.append(name)
 
-    print("counta:",counta)
+    for profil in soup.find_all(attrs={"class": "list_name pointer tip green"}):
+        counta += 1
+        name = profil.get_text()
+        if name not in profildict:
+            profil = str(profil)
+            profil = profil.split(" ")
+            profil = profil[1].split("/")
+            Id = profil[2]
+            Id = Id[0:-1]
 
+            urlplayer[name] = "rivalregions.com/#slide/profile/" + str(Id)
+            print(name)
+            print(party)
+            party = await getProfilParty(Id, session)
+            profildict[name] = party
+        player.append(name)
 
+    print("counta:", counta)
 
 
     for dmg in soup.find_all(attrs={"class":"yellow"}):
