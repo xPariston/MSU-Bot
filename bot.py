@@ -157,16 +157,16 @@ async def getMSUmember():
     for member in memberdict:
         await client.say(memberdict[member])
 
-async def update_markt_background_task():
-    await client.wait_until_ready()
-    while not client.is_closed:
-        Preise = await rrDamage.getMarktPreise()
-        preischannel = discord.Object(id="504982618631045132")
-        if "Öl" in Preise:
-            await client.send_message(preischannel, "Routinecheck geschafft.")
-        else:
-            await client.send_message(preischannel, "@Admin#9464 pls fix me senpai")
-        await asyncio.sleep(86400)
+# async def update_markt_background_task():
+#     await client.wait_until_ready()
+#     while not client.is_closed:
+#         Preise = await rrDamage.getMarktPreise()
+#         preischannel = discord.Object(id="504982618631045132")
+#         if "Öl" in Preise:
+#             await client.send_message(preischannel, "Routinecheck geschafft.")
+#         else:
+#             await client.send_message(preischannel, "@Admin#9464 pls fix me senpai")
+#         await asyncio.sleep(86400)
 
 @client.event
 async def on_member_join(member):
@@ -281,7 +281,7 @@ async def on_ready():
     print('------')
 
 
-client.loop.create_task(update_markt_background_task())
+#client.loop.create_task(update_markt_background_task())
 client.run(os.getenv('TOKEN'))
 
 
